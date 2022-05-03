@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import './App.css';
-import { ContextMenu } from './componets/ContextMenu';
-import { Editor } from './componets/Editor';
-import { Files, Sidebar } from './componets/Sidebar';
+import { ContextMenu } from './components/ContextMenu';
+import { Editor } from './components/Editor';
+import { Files, Sidebar } from './components/Sidebar';
 import { useFiles } from './hook';
-import { FileItem } from './reducers/fileReducer';
+import { FileItem } from './store/files';
 
 function App() {
   const { files } = useFiles()

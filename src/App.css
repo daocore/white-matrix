@@ -121,6 +121,7 @@ p {
   line-height: 40px;
   display: flex;
   align-items: center;
+  border-right: 1px solid rgba(0, 0, 0, 1)
 }
 
 #sidebar h3 {

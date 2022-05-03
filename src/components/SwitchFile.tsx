@@ -13,8 +13,7 @@ export const SwitchFile = ({ showList }: { showList: FileItem[] }) => {
   return (
     <div className="editor-tabs">
       {showList?.map((item: any, i: number) => <div key={i} className={`editor-tab`} style={{
-        background: selectID === item?.id ? "rgba(0, 0, 0, 1)" : "none",
-        borderRight: "1px solid rgba(0, 0, 0, 1)"
+        background: selectID === item?.id ? "rgba(0, 0, 0, 1)" : "none"
       }}
         onClick={() => {
           dispatch(handleActive({ path: item.path, id: item.id }));

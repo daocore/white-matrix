@@ -1,21 +1,15 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FileItem, handleCut, setFiles, TFileState, TPath } from "../reducers/fileReducer";
+import { FileItem, handleCut, setFiles, TFileState, TPath } from "../store/files";
 import { createID, getFileItem, modifyID, setFileItem } from "../utils";
 
 export const useFiles = () => useSelector((state: { files: TFileState }) => state.files);
-
-export const useGetFatherChildrens = (path: (string | number)[]) => {
-  const { files } = useFiles();
-  return useMemo(() => getFileItem(files, path.slice(0, -1), "children"), [files, path])
-}
 
 export const useHavaSameName = () => {
   const { files } = useFiles();
   return useCallback((path: (string | number)[], name: string, id: string) => {
     const childrens = getFileItem(files, path.slice(0, -1), "children")
     const items = childrens?.filter((item: FileItem) => item.name === name);
-    if (items?.length === 1) return items[0]?.id !== id
     return items?.length > 1
   }, [files])
 }
@@ -39,7 +33,7 @@ export const useAddFileOrFolder = () => {
 
     dispatch(setFiles({ path, val: [...currentItem?.children, value], prop: "children" }));
     dispatch(setFiles({ path, val: true, prop: "active" }));
-  }, [files])
+  }, [files, dispatch])
 }
 
 export const useDelete = () => {
@@ -52,13 +46,12 @@ export const useDelete = () => {
     const father = getFileItem(files, arr, "self");
     father?.children.splice(index, 1);
     dispatch(setFiles({ path: arr, val: father?.children, prop: "children" }));
-  }, [files])
+  }, [files, dispatch])
 }
 
 export const useStick = () => {
   const { files, stick } = useFiles();
   const dispatch = useDispatch();
-  const remove = useDelete();
 
   return useCallback((path: TPath) => {
     let deleteAfter = files;
@@ -85,9 +78,9 @@ export const useStick = () => {
     const currentItem = getFileItem(deleteAfter, path, "self");
     currentItem?.children.push({ ...modifyID(stick.content), path: [...path, currentItem?.children?.length] });
 
-    const temp = setFileItem(deleteAfter, path, "children", currentItem.children);
-    const data = setFileItem(temp, path, "active", true);
+    const stickAfter = setFileItem(deleteAfter, path, "children", currentItem.children);
+    const activeAfter = setFileItem(stickAfter, path, "active", true);
 
-    dispatch(setFiles({ path: [0], val: data[0].children, prop: "children" }));
-  }, [files, stick, remove])
+    dispatch(setFiles({ path: [0], val: activeAfter[0].children, prop: "children" }));
+  }, [files, stick, dispatch])
 }

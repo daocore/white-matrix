@@ -1,7 +1,7 @@
 import { ReactNode, useMemo, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useFiles, useHavaSameName } from "../hook";
-import { FileItem, setFiles, handleActive } from '../reducers/fileReducer';
+import { FileItem, setFiles, handleActive } from '../store/files';
 import { Arrow } from "./Arrow";
 
 export const Files = ({ file, tabSize, path }: { file: FileItem, tabSize: number, path: number[] }) => {
@@ -10,7 +10,7 @@ export const Files = ({ file, tabSize, path }: { file: FileItem, tabSize: number
   const isFolder = useMemo(() => file?.type === "folder", [file.type]);
   const [value, setValue] = useState(file.name || "");
   const haveSameName = useHavaSameName();
-  const isSame = useMemo(() => haveSameName(path, value, file.id), [path, value, file.id])
+  const isSame = useMemo(() => haveSameName(path, value, file.id), [path, value, file.id, haveSameName]);
 
   const setName = () => {
     if (!value || isSame) return
@@ -18,7 +18,7 @@ export const Files = ({ file, tabSize, path }: { file: FileItem, tabSize: number
     dispatch(setFiles({ path, prop: "edit", val: false }));
   }
 
-  const title = useMemo(() => `${file.type}-${path.join("-")}`, [file.type]);
+  const title = useMemo(() => `${file.type}-${path.join("-")}`, [file.type, path]);
 
   const select = () => {
     !isFolder && dispatch(handleActive({ path, id: file.id }));

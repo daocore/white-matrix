@@ -67,6 +67,7 @@ export const ContextMenu = () => {
       document.removeEventListener('click', _handleClick);
       document.removeEventListener('scroll', _handleScroll);
     };
+  // eslint-disable-next-line
   }, []);
 
   return (

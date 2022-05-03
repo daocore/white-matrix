@@ -3,7 +3,7 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 
-import { FileItem, setFiles } from "../reducers/fileReducer";
+import { FileItem, setFiles } from "../store/files";
 import { useDispatch } from "react-redux";
 import { useMemo } from "react";
 import { useFiles } from "../hook";
@@ -32,15 +32,15 @@ export const Editor = ({ showList }: { showList: FileItem[] }) => {
   const { selectID } = useFiles();
   const dispatch = useDispatch();
 
-  const selectConnet = useMemo(() => showList.find(item => item?.id === selectID), [selectID, showList]);
-  const fileType = selectConnet?.name?.split(".").pop() || "";
-  const isShow = useMemo(() => Object.keys(defaultContent).includes(fileType), [selectConnet]);
+  const selectItem = useMemo(() => showList.find(item => item?.id === selectID), [selectID, showList]);
+  const fileType = selectItem?.name?.split(".").pop() || "";
+  const isShow = useMemo(() => Object.keys(defaultContent).includes(fileType), [fileType]);
 
-  const onChange = (newValue: string) => dispatch(setFiles({ path: selectConnet?.path, prop: "content", val: newValue }));
+  const onChange = (newValue: string) => dispatch(setFiles({ path: selectItem?.path, prop: "content", val: newValue }));
   const value = useMemo(() => {
-    if (isShow) return selectConnet?.content === undefined ? defaultContent[fileType] : selectConnet?.content
-    else return selectConnet ? "内容不可查看" : "请选择文件";
-  }, [isShow, selectConnet, fileType])
+    if (isShow) return selectItem?.content === undefined ? defaultContent[fileType] : selectItem?.content
+    else return selectItem ? "内容不可查看" : "请选择文件";
+  }, [isShow, selectItem, fileType])
 
   return (
     <div id="content">
@@ -49,7 +49,7 @@ export const Editor = ({ showList }: { showList: FileItem[] }) => {
         mode="javascript"
         theme="monokai"
         width="calc(100vw - 210px)"
-        height={`calc(100vh - ${selectConnet ? "40" : "0"}px)`}
+        height={`calc(100vh - ${selectItem ? "40" : "0"}px)`}
         value={value}
         onChange={onChange}
         readOnly={!isShow}

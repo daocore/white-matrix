@@ -1,4 +1,4 @@
-import { FileItem } from "../store/fileReducer";
+import { FileItem } from "../store/files";
 
 export const setFileItem = (files: FileItem[], path: (string | number)[], prop: string, val: any) => {
   const data = JSON.parse(JSON.stringify(files));
