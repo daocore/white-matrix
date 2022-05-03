@@ -1,0 +1,193 @@
+#app {
+  /* font-family: Consolas, "Courier New", monospace; */
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #ddd;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+blockquote,
+body,
+dd,
+div,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+li,
+ol,
+p,
+pre,
+td,
+textarea,
+th,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li {
+  list-style: none
+}
+
+*,
+body,
+button,
+html,
+input,
+select,
+textarea {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  /* background: rgb(39, 40, 34) */
+}
+
+a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+#content {
+  position: relative;
+  margin-left: 210px;
+}
+
+#sidebar {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  width: 210px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0;
+  border-right: 1px solid rgb(65, 67, 57);
+  background: rgb(39, 40, 34);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  color: #cfd0d2;
+  box-shadow: 0 0 0 rgba(0, 0, 0, .5);
+}
+
+.editor-tabs {
+  display: flex;
+  align-items: center;
+  background: #3a3c35;
+  box-shadow: #181818 0px 0px 5px;
+  height: 40px;
+  padding-right: 10px;
+  width: calc(100vw - 220px);
+  overflow: auto;
+}
+
+.editor-tab {
+  padding: 0 20px;
+  height: 40px;
+  color: white;
+  cursor: pointer;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+#sidebar h3 {
+  clear: both;
+  padding: 0;
+  font-size: 11px;
+  font-weight: bold;
+  color: #fbfbfb;
+}
+
+#sidebar .sidebar-item .body {
+  padding: 0 10px 15px;
+  display: block;
+}
+
+#sidebar p {
+  margin: 0 0 8px;
+  line-height: 160%;
+}
+
+#sidebar #sidebar-main {
+  flex-grow: 1;
+  overflow: auto;
+  opacity: 1;
+}
+
+.folder,
+.file-item {
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  padding: 0px 5px;
+}
+
+.arrow{
+  display: flex;
+  align-items: center;
+  margin-left: -5px;
+}
+
+.folder:hover,
+.file-item:hover {
+  background-color: rgb(65, 67, 57);
+}
+
+.input{
+  border: none;
+  background-color: transparent;
+  color: white;
+  width: 100%;
+  outline-style: none;
+  font-size: 18px;
+}
+
+.context-menu {
+  z-index: 1000;
+  position: absolute;
+  background-color: #181818;
+  border-radius: 2px;
+  color: white;
+  width: 150px;
+}
+
+.context-menu>.file-item {
+  padding-left: 10px;
+}
